@@ -43,3 +43,9 @@ export const managerAuth = auth(process.env.JWT_MANAGER_SECRET)
 export const consultantResetAuth = auth(process.env.JWT_CONSULTANT_RESET_SECRET)
 
 export const staffAuth = auth(process.env.JWT_STAFF_SECRET)
+
+export const customerAuth = auth(process.env.JWT_CUSTOMER_SECRET)
+
+export const customerResetAuth = auth(process.env.JWT_CUSTOMER_RESET_SECRET)
+
+export const consultantAuth = auth(process.env.JWT_CONSULTANT_SECRET);
