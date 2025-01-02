@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import manager from '../models/manager.model';
 import { Imanager } from '../interfaces/manager.interface';
-import { sendEmail } from '../utils/manager.util';
+import { sendEmail } from '../utils/user.util';
 import redisClient from '../config/redis';
 
 class managerService {

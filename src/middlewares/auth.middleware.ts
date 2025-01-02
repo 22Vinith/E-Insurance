@@ -37,3 +37,9 @@ const auth = (secret_token: string) => {
 }
 
 export const managerResetAuth = auth(process.env.JWT_MANAGER_RESET_SECRET)
+
+export const managerAuth = auth(process.env.JWT_MANAGER_SECRET)
+
+export const consultantResetAuth = auth(process.env.JWT_CONSULTANT_RESET_SECRET)
+
+export const staffAuth = auth(process.env.JWT_STAFF_SECRET)
