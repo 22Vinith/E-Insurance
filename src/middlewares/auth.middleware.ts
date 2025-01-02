@@ -19,14 +19,12 @@ const auth = (secret_token: string) => {
   ): Promise<void> => {
     try {
       let bearerToken = req.header('Authorization');
-      console.log('Bearer Token:', bearerToken);
       if (!bearerToken)
         throw {
           code: HttpStatus.BAD_REQUEST,
           message: 'Authorization token is required'
         };
       bearerToken = bearerToken.split(' ')[1];
-      console.log(bearerToken,secret_token)
       const { userId }: any = await jwt.verify(bearerToken, secret_token);
       res.locals.id = userId;      
       next();

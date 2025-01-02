@@ -45,7 +45,6 @@ class consultantController{
     // Get all Consultants
     public getAllConsultant = async (req: Request, res: Response, next: NextFunction) => {
         try {
-            console.log('[[[[[[[[[[')
             const agents = await this.consultantService.getAllConsultants();
             res.status(httpstatus.OK).json({ 
                 code: httpstatus.OK, 
@@ -118,7 +117,5 @@ class consultantController{
   
 
 }
-
-
 
 export default consultantController

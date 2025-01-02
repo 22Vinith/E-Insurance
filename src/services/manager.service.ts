@@ -42,7 +42,6 @@ class managerService {
 
             const payload = { userId: adminData._id, email: adminData.email };
             const token = jwt.sign(payload, process.env.JWT_MANAGER_SECRET);
-            console.log(process.env.JWT_MANAGER_SECRET)
             const refreshToken = jwt.sign(payload, process.env.JWT_MANAGER_SECRET, { expiresIn: '7d' });
             await manager.findByIdAndUpdate(adminData._id, { refreshToken });
             return {token, username:adminData.username, email:adminData.email};
@@ -73,7 +72,6 @@ class managerService {
     // forget password
     public forgotPassword = async (email: string): Promise<void> => {
         try{
-          console.log(email)
         const adminData = await manager.findOne({email:email});
         if (!adminData) {
             throw new Error('Email not found');
