@@ -73,7 +73,8 @@ class managerService {
     // forget password
     public forgotPassword = async (email: string): Promise<void> => {
         try{
-        const adminData = await manager.findOne({ email });
+          console.log(email)
+        const adminData = await manager.findOne({email:email});
         if (!adminData) {
             throw new Error('Email not found');
         }
