@@ -1,9 +1,9 @@
 import HttpStatus from 'http-status-codes';
-import customerService from '../services/customer.service';
+import CustomerService from '../services/customer.service';
 import { Request, Response, NextFunction } from 'express';
 
-class UserController {
-  public CustomerService = new customerService();
+class CustomerController {
+  public CustomerService = new CustomerService();
 
   /**
    * Controller to create new user
@@ -157,5 +157,5 @@ class UserController {
 
 }
 
-export default UserController;
+export default CustomerController;
 

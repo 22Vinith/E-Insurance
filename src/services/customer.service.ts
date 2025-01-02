@@ -10,6 +10,7 @@ import { error } from 'winston';
 import redisClient from '../config/redis';
 
 
+
 class CustomerService {
   public createCustomer = async (body: Customer): Promise<Customer> => {
     try {
@@ -56,6 +57,7 @@ class CustomerService {
     }
 
     const payload = { userId: customerData._id, email: customerData.email };
+
 
     const token = jwt.sign(payload, process.env.JWT_CUSTOMER_SECRET as string, { expiresIn: '1h' });
     const refreshToken = jwt.sign(payload, process.env.JWT_CUSTOMER_SECRET as string, { expiresIn: '7d' });

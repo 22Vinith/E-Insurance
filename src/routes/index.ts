@@ -4,6 +4,7 @@ const router = express.Router();
 import userRoute from './manager.route';
 import consultantRoute from './consultant.route'
 import customerRoute from './customer.route'
+import staffRoute from './staff.route'
 
 /**
  * Function contains Application routes
@@ -17,6 +18,7 @@ const routes = (): IRouter => {
   router.use('/manager', new userRoute().getRoutes());
   router.use('/consultant', new consultantRoute().getRoutes());
   router.use('/customer', new customerRoute().getRoutes());
+  router.use('/staff', new staffRoute().getRoutes());
 
   return router;
 };

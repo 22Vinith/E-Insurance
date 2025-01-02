@@ -1,12 +1,12 @@
 import express, { IRouter } from 'express';
 import CustomerController from '../controllers/customer.controller';
-import CustomerValidator from '../validators/customer.validator'; 
+import customerValidator from '../validators/customer.validator'; 
 import { managerAuth, consultantAuth, customerAuth, customerResetAuth, staffAuth } from '../middlewares/auth.middleware';
 
 class UserRoutes {
   private CustomerController = new CustomerController();
   private router = express.Router();
-  private CustomerValidator = new CustomerValidator();  
+  private CustomerValidator = new customerValidator();  
 
   constructor() {
     this.routes();
