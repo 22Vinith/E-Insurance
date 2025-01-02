@@ -11,25 +11,29 @@ import { Request, Response, NextFunction } from 'express';
  * @param {Object} res
  * @param {Function} next
  */
-export const userAuth = async (
+const auth = (secret_token: string) => {
+  return async (
   req: Request,
   res: Response,
   next: NextFunction
-): Promise<void> => {
-  try {
-    let bearerToken = req.header('Authorization');
-    if (!bearerToken)
-      throw {
-        code: HttpStatus.BAD_REQUEST,
-        message: 'Authorization token is required'
-      };
-    bearerToken = bearerToken.split(' ')[1];
+  ): Promise<void> => {
+    try {
+      let bearerToken = req.header('Authorization');
+      console.log('Bearer Token:', bearerToken);
+      if (!bearerToken)
+        throw {
+          code: HttpStatus.BAD_REQUEST,
+          message: 'Authorization token is required'
+        };
+      bearerToken = bearerToken.split(' ')[1];
+      console.log(bearerToken,secret_token)
+      const { userId }: any = await jwt.verify(bearerToken, secret_token);
+      res.locals.id = userId;      
+      next();
+    } catch (error) {
+      next(error);
+    }
+  };
+}
 
-    const { user }: any = await jwt.verify(bearerToken, 'your-secret-key');
-    res.locals.user = user;
-    res.locals.token = bearerToken;
-    next();
-  } catch (error) {
-    next(error);
-  }
-};
+export const managerResetAuth = auth(process.env.JWT_MANAGER_RESET_SECRET)
