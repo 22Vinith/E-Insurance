@@ -5,6 +5,7 @@ import userRoute from './manager.route';
 import consultantRoute from './consultant.route'
 import customerRoute from './customer.route'
 import staffRoute from './staff.route'
+import planRoute from './plan.route'
 
 /**
  * Function contains Application routes
@@ -19,6 +20,7 @@ const routes = (): IRouter => {
   router.use('/consultant', new consultantRoute().getRoutes());
   router.use('/customer', new customerRoute().getRoutes());
   router.use('/staff', new staffRoute().getRoutes());
+  router.use('/plan', new planRoute().getRoutes());
 
   return router;
 };
