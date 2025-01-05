@@ -19,6 +19,8 @@ class CustomerController {
     next: NextFunction
   ): Promise<any> => {
     try {
+      if(req.file)
+      req.body.profilePhoto=req.file.buffer
       await this.CustomerService.createCustomer(req.body);
       
       res.status(HttpStatus.CREATED).json({
@@ -29,6 +31,27 @@ class CustomerController {
       res.status(HttpStatus.BAD_REQUEST).json({
         code: HttpStatus.BAD_REQUEST,
         message: `${error}`});
+    }
+  };
+
+  
+  //paying the premium
+  public payPremium =async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<any> => {
+    try {
+      const paymentDetails= await this.CustomerService.payPremium (req.body);
+      res.status(HttpStatus.OK).json({
+        code: HttpStatus.OK,
+        data:paymentDetails,
+       message:'payment is successful'
+      });
+    } catch (error) {
+      res.status(HttpStatus.BAD_REQUEST).json({
+        code: HttpStatus.BAD_REQUEST,
+        message: `${error}`})
     }
   };
 

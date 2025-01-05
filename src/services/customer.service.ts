@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { ObjectId } from 'mongoose';
 import customer from '../models/customer.model'
-
+import Policy from '../models/policy.model';
 import Consultant from '../models/consultant.model'
 import { sendEmail } from '../utils/user.util';
 import { error } from 'winston';
@@ -144,6 +144,28 @@ class CustomerService {
     } catch(error){
       throw new Error("Error occured cannot send email: "+error)
     }
+  };
+
+  public payPremium = async (body): Promise<any> => {
+    const { policyId, paymentAmount, agentId, commissionRate = 5 } = body;
+    const policy = await Policy.findById(policyId);
+
+    if(policy.duration===policy.premiumPaid){
+       throw new Error(`your policy is matured don't need to pay`)
+    }
+    const amountPerMonth = policy.premiumAmount;
+    if (paymentAmount !== amountPerMonth) {
+      throw new Error(`Payment amount must match the monthly premium of ${amountPerMonth}`);
+    }
+    policy.premiumPaid += 1;
+    policy.pendingPremium = Math.max(0, policy.pendingPremium - 1);
+    await policy.save();
+    const commissionEarned = paymentAmount * (commissionRate / 100);
+    if (agentId) {
+      await Consultant.findByIdAndUpdate(agentId,{ $inc: { commission: commissionEarned } }, { new: true } );
+    }
+      await redisClient.flushAll();
+    return { totalMonthsPaid: policy.premiumPaid,monthsRemaining: policy.pendingPremium};
   };
 
   //reset password

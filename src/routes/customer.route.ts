@@ -32,6 +32,9 @@ class UserRoutes {
     // Reset Password route
     this.router.post('/reset-password', customerResetAuth, this.CustomerValidator.validateResetPassword, this.CustomerController.resetPassword);
     
+    //route for customer to pay premium
+    this.router.post('/paypremium', customerAuth, this.CustomerController.payPremium);
+
     //route to refresh token
     this.router.get('/:id/refreshtoken', this.CustomerController.refreshToken);
 

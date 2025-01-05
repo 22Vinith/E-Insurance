@@ -64,7 +64,7 @@ class StaffService{
                 };
             }
     
-            // Fetch employee data from the database
+            // Fetch staff data from the database
             const employees = await Staff.find().select('-password -refreshToken');
             if (!employees || employees.length === 0) {
                 throw new Error('No employees found.');
